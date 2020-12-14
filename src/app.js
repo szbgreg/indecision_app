@@ -3,9 +3,7 @@ class IndecisionApp extends React.Component {
     return (
       <div>
         <Header />
-        <div>
-          <button>What should I do?</button>
-        </div>
+        <Action />
       </div>
     );
   }
@@ -17,6 +15,16 @@ class Header extends React.Component {
       <div>
         <h1>Indecision App</h1>
         <h2>Put your life in hands of the computer</h2>
+      </div>
+    );
+  }
+}
+
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <button>What should I do?</button>
       </div>
     );
   }
