@@ -3,6 +3,7 @@ import AddOption from './AddOption';
 import { Options } from './Options';
 import { Action } from './Action';
 import { Header } from './Header';
+import OptionModal from './OptionModal';
 
 export default class IndecisionApp extends React.Component {
   // Before using transform-class-properties plugin
@@ -22,7 +23,8 @@ export default class IndecisionApp extends React.Component {
   // After using transform-class-properties plugin
 
   state = {
-    options: []
+    options: [],
+    selectedOption: undefined
   };
 
   componentDidMount() {
@@ -53,7 +55,7 @@ export default class IndecisionApp extends React.Component {
   handlePick = () => {
     const randomNumber = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNumber];
-    alert(option);
+    this.setState(() => ({ selectedOption: option }));
   };
   handleAddOption = (option) => {
     if (!option) {
@@ -63,6 +65,11 @@ export default class IndecisionApp extends React.Component {
     }
     this.setState((prevState) => ({
       options: prevState.options.concat(option)
+    }));
+  };
+  handleClearSelectedOption = () => {
+    this.setState(() => ({
+      selectedOption: undefined
     }));
   };
   render() {
@@ -81,6 +88,10 @@ export default class IndecisionApp extends React.Component {
           handleDeleteOption={this.handleDeleteOption}
         />
         <AddOption handleAddOption={this.handleAddOption} />
+        <OptionModal
+          selectedOption={this.state.selectedOption}
+          handleClearSelectedOption={this.handleClearSelectedOption}
+        />
       </div>
     );
   }
