@@ -5,16 +5,26 @@ import { Action } from './Action';
 import { Header } from './Header';
 
 export default class IndecisionApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-    this.handlePick = this.handlePick.bind(this);
-    this.handleAddOption = this.handleAddOption.bind(this);
-    this.handleDeleteOption = this.handleDeleteOption.bind(this);
-    this.state = {
-      options: []
-    };
-  }
+  // Before using transform-class-properties plugin
+
+  /*constructor(props) {
+      super(props);
+      this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+      this.handlePick = this.handlePick.bind(this);
+      this.handleAddOption = this.handleAddOption.bind(this);
+      this.handleDeleteOption = this.handleDeleteOption.bind(this);
+      this.state = {
+        options: []
+      };
+    }
+  }  */
+
+  // After using transform-class-properties plugin
+
+  state = {
+    options: []
+  };
+
   componentDidMount() {
     try {
       const json = localStorage.getItem('options');
@@ -32,20 +42,20 @@ export default class IndecisionApp extends React.Component {
       localStorage.setItem('options', json);
     }
   }
-  handleDeleteOptions() {
+  handleDeleteOptions = () => {
     this.setState(() => ({ options: [] }));
-  }
-  handleDeleteOption(option) {
+  };
+  handleDeleteOption = (option) => {
     this.setState((prevState) => ({
       options: prevState.options.filter((el) => el != option)
     }));
-  }
-  handlePick() {
+  };
+  handlePick = () => {
     const randomNumber = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNumber];
     alert(option);
-  }
-  handleAddOption(option) {
+  };
+  handleAddOption = (option) => {
     if (!option) {
       return 'Enter valid value to add item';
     } else if (this.state.options.indexOf(option) > -1) {
@@ -54,7 +64,7 @@ export default class IndecisionApp extends React.Component {
     this.setState((prevState) => ({
       options: prevState.options.concat(option)
     }));
-  }
+  };
   render() {
     const title = 'Indecision App';
     const subtitle = 'Put your life in hands of the computer';
